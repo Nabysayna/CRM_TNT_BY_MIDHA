@@ -20,6 +20,9 @@ export class CrmTntComponent implements OnInit {
   vert(){
     this.filtrePortFeuille=3;
   }
+  tout(){
+    this.filtrePortFeuille=null;
+  }
   getColor(etat){
     switch(etat){
       case 1:

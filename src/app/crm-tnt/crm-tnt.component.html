@@ -36,6 +36,7 @@
           </div>
           <div *ngIf="port==1">
                <div class="form-group">
+                   <a class="btn btn-default" style="margin-left: 2%" (click)="tout()"> tout afficher</a>
                     <a class="btn btn-danger" style="margin-left: 10%" (click)="rouge()"> non abonné</a>
                     <a class="btn btn-warning" style="margin-left: 2%" (click)="orange()"> abonné delais proche</a>
                     <a class="btn btn-success" style="margin-left: 2%" (click)="vert()"> abonné</a>
@@ -59,6 +60,17 @@
                             <a ><span style="margin-left: 5%" title="finalisé" class="glyphicon 	glyphicon glyphicon-ok"></span></a>
                         </td>
                      </tr> 
+                    <!-- <tr *ngFor="let a of Abonner" [ngStyle]="{'background-color':getColor(a.etat)}">
+                        <td>{{a.prenom}}</td>
+                        <td>{{a.nom}}</td>
+                        <td>{{a.tel}}</td>
+                        <td>{{a.tel}}</td>
+                        <td><a ><span style="margin-left: 5%" title="etat" class="glyphicon glyphicon glyphicon-bookmark"></span></a>
+                            <a ><span style="margin-left: 5%" title="abonné" class="glyphicon glyphicon glyphicon-user"></span></a>
+                            <a ><span style="margin-left: 5%"  title="commentaire" class="glyphicon glyphicon glyphicon-comment"></span></a>
+                            <a ><span style="margin-left: 5%" title="finalisé" class="glyphicon 	glyphicon glyphicon-ok"></span></a>
+                        </td>
+                     </tr>--> 
               </table>
             </div>
     </div>
