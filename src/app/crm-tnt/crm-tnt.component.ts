@@ -34,17 +34,17 @@ export class CrmTntComponent implements OnInit {
     }
   }
   Abonner = [
-    {prenom:'Amadou',nom:'Ba', tel:'779854263', etat:1},
-    {prenom:'Fatou',nom:'Diiop', tel:'779654263', etat:2},
-    {prenom:'Adama',nom:'fall', tel:'779866263', etat:3},
-    {prenom:'Issa',nom:'Tamba', tel:'779854263', etat:1},
-    {prenom:'Samba',nom:'Soz', tel:'779888263', etat:2},
-    {prenom:'Ndeye',nom:'Gueye', tel:'779854263', etat:1},
-    {prenom:'Anta',nom:'Niang', tel:'779854263', etat:2},
-    {prenom:'Fallou',nom:'Fall', tel:'7791214263', etat:1},
-    {prenom:'Awa',nom:'Diouf', tel:'779854263', etat:3},
-    {prenom:'Youssou',nom:'Ba', tel:'779854263', etat:3},
-    {prenom:'Ablaye',nom:'Barry', tel:'779854263', etat:1}
+    {prenom:'Amadou',nom:'Ba', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:1},
+    {prenom:'Fatou',nom:'Diiop', tel:'779654263',commentaire:'gvhvhbjh ibhjb', etat:2},
+    {prenom:'Adama',nom:'fall', tel:'779866263',commentaire:'gvhvhbjh ibhjb', etat:3},
+    {prenom:'Issa',nom:'Tamba', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:1},
+    {prenom:'Samba',nom:'Soz', tel:'779888263',commentaire:'gvhvhbjh ibhjb', etat:2},
+    {prenom:'Ndeye',nom:'Gueye', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:1},
+    {prenom:'Anta',nom:'Niang', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:2},
+    {prenom:'Fallou',nom:'Fall', tel:'7791214263',commentaire:'gvhvhbjh ibhjb', etat:1},
+    {prenom:'Awa',nom:'Diouf', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:3},
+    {prenom:'Youssou',nom:'Ba', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:3},
+    {prenom:'Ablaye',nom:'Barry', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:1}
   ]
   modalRef: BsModalRef;
   openModal(template: TemplateRef<any>) {
