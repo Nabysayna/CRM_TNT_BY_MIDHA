@@ -1,12 +1,13 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { BsModalService, BsModalRef } from '../../../node_modules/ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from '../../../node_modules/ngx-bootstrap/modal';
 
 @Component({
-  selector: 'app-crm-tnt',
-  templateUrl: './crm-tnt.component.html',
-  styleUrls: ['./crm-tnt.component.css']
+  selector: 'app-superviseur',
+  templateUrl: './superviseur.component.html',
+  styleUrls: ['./superviseur.component.css']
 })
-export class CrmTntComponent implements OnInit {
+export class SuperviseurComponent implements OnInit {
+
   liste:number=0;
   port:number=0;
   filtres:string;
@@ -76,21 +77,17 @@ export class CrmTntComponent implements OnInit {
   }
 
   comment(i :number){
-    //alert(this.commentaires);
-     //if(this.listeAppel[i]){
-       for(let a of this.listeAppel){
-        // alert( a.commentaire);
+    alert(this.commentaires);
+     if(this.listeAppel[i]){
+       for(let a of this.listeAppel[i]){
+         alert( a.commentaire);
           a.commentaire=this.commentaires;
        }
-    // }
+     }
   }
-
   constructor(private modalService: BsModalService) { }
 
   ngOnInit() {
-    for(let lp of this.Abonner){
-      this.listeAppel.push(lp);
-    }
   }
 
 }

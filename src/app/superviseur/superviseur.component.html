@@ -5,8 +5,8 @@
     <div class="panel-heading" ></div>
     <div class="panel panel-body">
          <div class="form-group" >
-            <button class="btn btn-primary" (click)="listeA()" style="margin-left: 40%;cursor: pointer;" >Liste Appel</button>
-            <button class="btn btn-primary" (click)="porte()" style="margin-left: 3%;cursor: pointer;">Porte Feuille</button>
+            <button class="btn btn-primary" (click)="listeA()" style="margin-left: 40%;cursor: pointer;" >Liste Client</button>
+            <button class="btn btn-primary" (click)="porte()" style="margin-left: 3%;cursor: pointer;">Suivi</button>
           </div>
          
           <div *ngIf="liste==0">
@@ -17,18 +17,20 @@
               </div>
               <table class="table table-bordered table-stripped">
               <tr>
+                <th><input type="checkbox" (click)="sellectedAll=true"   value="tout Cocher"> </th>
                 <th>Prenom</th>
                 <th>Nom</th>
                 <th>Téléphone</th>
                 <th>Option</th>
               </tr>
-                  <tr *ngFor="let a of listeAppel | filterBy: ['prenom']: filtres;let i=index" >
+                  <tr *ngFor="let a of Abonner | filterBy: ['prenom']: filtres;let i=index" >
+                      <td > <input type="checkbox" ></td>
                       <td>{{a.prenom}}</td>
                       <td>{{a.nom}}</td>
                       <td>{{a.tel}}</td>
                       <td><span style="margin-left: 5%;cursor: pointer;" title="etat" class="glyphicon  glyphicon-bookmark"></span>
                           <span style="margin-left: 5%;cursor: pointer;" (click)="abonner(i)" title="abonner" class="glyphicon glyphicon-saved"></span>
-                          <span style="margin-left: 5%;cursor: pointer;" (click)="comment(i);openModal(template)" title="commentaire" class="glyphicon  glyphicon-comment"></span>
+                          <span style="margin-left: 5%;cursor: pointer;" (click)="openModal(template);comment(i)" title="commentaire" class="glyphicon  glyphicon-comment"></span>
                           <span style="margin-left: 5%;cursor: pointer;"(click)="finaliser(i)" title="finalisé" class="glyphicon 	glyphicon glyphicon-ok"></span>
                       </td>
                    </tr> 
@@ -50,7 +52,7 @@
                   <th>Commantaire</th>
                   <th>Option</th>
                 </tr>
-                    <tr *ngFor="let a of listePorteFeuille | filterBy: ['etat']: filtrePortFeuille;let i=index"  [ngStyle]="{'background-color':getColor(a.etat)}">
+                    <tr *ngFor="let a of Abonner | filterBy: ['etat']: filtrePortFeuille;let i=index"  [ngStyle]="{'background-color':getColor(a.etat)}">
                         <td >{{a.prenom}}</td>
                         <td >{{a.nom}}</td>
                         <td >{{a.tel}}</td>
