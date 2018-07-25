@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, Input } from '@angular/core';
 import { BsModalService, BsModalRef } from '../../../node_modules/ngx-bootstrap/modal';
 
 @Component({
@@ -10,7 +10,7 @@ export class CrmTntComponent implements OnInit {
   liste:number=0;
   port:number=0;
   filtres:string;
-  listeAppel =[];
+  @Input() listeAppel =[];
   commentaires:string;
   listePorteFeuille =[];
   lpf = [];
@@ -37,6 +37,19 @@ export class CrmTntComponent implements OnInit {
         return 'green';
     }
   }
+  getEtat(etat,i:number){
+    
+    if(this.listeAppel[i].etat==1)
+    {
+      alert('non abonné');
+    }else if(this.listeAppel[i].etat==2)
+    {
+      alert('délais proche');
+    }else if(this.listeAppel[i].etat==3)
+    {
+      alert('abonné');
+    }
+ }
   Abonner = [
     {prenom:'Amadou',nom:'Ba', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:1},
     {prenom:'Fatou',nom:'Diop', tel:'779654263',commentaire:'gvhvhbjh ibhjb', etat:2},

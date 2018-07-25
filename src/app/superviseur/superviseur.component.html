@@ -1,5 +1,27 @@
-<p>
-</p>
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="margin-bottom: 0">
+  <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">CRM TNT</a>
+  </div >
+  <!-- /.navbar-header -->
+
+          <div class="navbar-collapse collapse navbar-right"style="margin-right: 5%">
+                  <ul class="nav navbar-nav">
+                      <li class="active"><a >Accueil</a>
+                      </li>
+                      <li style="cursor: pointer;"><a routerLink="/supervideur">Superviseur</a>
+                      </li>
+                      <li style="cursor: pointer;"><a routerLink="/login" routerLinkActive="active">Déconnexion</a></li>
+                 
+                   </ul>
+              </div>
+             
+</nav>
 <div class="container col-md-12 primary" >
   <div class="panel">
     <div class="panel-heading" ></div>
@@ -7,8 +29,8 @@
          <div class="form-group" >
             <button class="btn btn-primary" (click)="listeA()" style="margin-left: 40%;cursor: pointer;" >Liste Client</button>
             <button class="btn btn-primary" (click)="porte()" style="margin-left: 3%;cursor: pointer;">Suivi</button>
-          </div>
-         
+        </div>
+        
           <div *ngIf="liste==0">
               <div class="form-group col-md-6">
                   <input  class="form-control" type="text" name="filtre" required
@@ -17,21 +39,24 @@
               </div>
               <table class="table table-bordered table-stripped">
               <tr>
-                <th><input type="checkbox" (click)="sellectedAll=true"   value="tout Cocher"> </th>
-                <th>Prenom</th>
+               <th>
+               <input type="checkbox" name="checke"  [(ngModel)]="checke"  (click)="checks()"> tout coché</th>
+            
+                 <th>Prenom</th>
                 <th>Nom</th>
                 <th>Téléphone</th>
-                <th>Option</th>
+                <th>Option   <a class="btn btn-default"><span style="margin-left: 5%;cursor: pointer;" (click)="affecters(i);openModal(template)"title="Affecter" class="glyphicon 	 glyphicon-list-alt"> affecters</span> </a></th>
               </tr>
                   <tr *ngFor="let a of Abonner | filterBy: ['prenom']: filtres;let i=index" >
-                      <td > <input type="checkbox" ></td>
+                      <td > 
+                          <input type="checkbox" (click)="cocher(i)" >
+                       </td>
                       <td>{{a.prenom}}</td>
                       <td>{{a.nom}}</td>
                       <td>{{a.tel}}</td>
-                      <td><span style="margin-left: 5%;cursor: pointer;" title="etat" class="glyphicon  glyphicon-bookmark"></span>
-                          <span style="margin-left: 5%;cursor: pointer;" (click)="abonner(i)" title="abonner" class="glyphicon glyphicon-saved"></span>
-                          <span style="margin-left: 5%;cursor: pointer;" (click)="openModal(template);comment(i)" title="commentaire" class="glyphicon  glyphicon-comment"></span>
-                          <span style="margin-left: 5%;cursor: pointer;"(click)="finaliser(i)" title="finalisé" class="glyphicon 	glyphicon glyphicon-ok"></span>
+                      <td><span style="margin-left: 5%;cursor: pointer;" (click)="getEtat(a.etat,i)" title="etat" class="glyphicon  glyphicon-bookmark"></span>
+                        <span style="margin-left: 5%;cursor: pointer;" (click)="affecter(i);openModal(template)" title="Affecter" class="glyphicon 	 glyphicon-list-alt"></span>
+                    
                       </td>
                    </tr> 
             </table>
@@ -57,7 +82,7 @@
                         <td >{{a.nom}}</td>
                         <td >{{a.tel}}</td>
                         <td >{{a.commentaire}}</td>
-                        <td ><span style="margin-left: 5%;cursor: pointer;" title="etat" class="glyphicon glyphicon glyphicon-bookmark"></span>
+                        <td ><span style="margin-left: 5%;cursor: pointer;" (click)="getEtat(a.etat,i)" title="etat" class="glyphicon glyphicon glyphicon-bookmark"></span>
                             <span style="margin-left: 5%;cursor: pointer;" (click)="abonner(i)"  title="abonné" class="glyphicon  glyphicon-saved"></span>
                            <span style="margin-left: 5%;cursor: pointer;"  title="commentaire" class="glyphicon glyphicon glyphicon-comment"></span>
                             <span style="margin-left: 5%;cursor: pointer;" title="finalisé" class="glyphicon 	glyphicon glyphicon-ok"></span>
@@ -68,7 +93,7 @@
     </div>
     <ng-template #template>
         <div class="modal-header">
-          <h4 class="modal-title pull-left">Commentaire</h4>
+          <h4 class="modal-title pull-left">Affectation</h4>
           <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -76,15 +101,15 @@
         <div class="modal-body">
           <div>
               
-               <form (ngSubmit)="onClick()"  #patientForm="ngForm">
+               <form  #patientForm="ngForm">
                   <div class="fform-group">
-                    <!-- <label class="control-label">Commentaire</label>
-                     <input class="form-control" type="text" name="dateRn" required
+                     <label class="control-label">Commerciale</label>
+                     <select class="form-control" type="text" name="dateRn" required
                      [(ngModel)]="dateRV"
-                     #name="ngModel">-->
-                     <textarea class="form-control" name="description" rows="3" cols="10" required
-                     [(ngModel)]="commentaires"
-                     #name="ngModel"></textarea>
+                     #name="ngModel">
+                        
+                        <option *ngFor="let c of Commerciale;let i=index" >{{c.prenom}} {{c.nom}}</option>
+                    </select>    
                   </div>
                  <p></p>
                  <div class="form-group">

@@ -1,5 +1,26 @@
-<p>
-</p>
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="margin-bottom: 0">
+  <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">CRM TNT</a>
+  </div>
+  <!-- /.navbar-header -->
+
+          <div class="navbar-collapse collapse navbar-right"style="margin-right: 5%">
+                  <ul class="nav navbar-nav">
+                      <li class="active"><a >Accueil</a>
+                      </li>
+                      <li style="cursor: pointer;"><a routerLink="/commerciale" routerLinkActive="active">Commerciale</a></li>
+                      <li style="cursor: pointer;"><a routerLink="/login" routerLinkActive="active">Déconnexion</a></li>
+                 
+                    </ul>
+              </div>
+             
+</nav>
 <div class="container col-md-12 primary" >
   <div class="panel">
     <div class="panel-heading" ></div>
@@ -26,7 +47,7 @@
                       <td>{{a.prenom}}</td>
                       <td>{{a.nom}}</td>
                       <td>{{a.tel}}</td>
-                      <td><span style="margin-left: 5%;cursor: pointer;" title="etat" class="glyphicon  glyphicon-bookmark"></span>
+                      <td><span style="margin-left: 5%;cursor: pointer;" (click)="getEtat(a.etat,i)" title="etat" class="glyphicon  glyphicon-bookmark"></span>
                           <span style="margin-left: 5%;cursor: pointer;" (click)="abonner(i)" title="abonner" class="glyphicon glyphicon-saved"></span>
                           <span style="margin-left: 5%;cursor: pointer;" (click)="comment(i);openModal(template)" title="commentaire" class="glyphicon  glyphicon-comment"></span>
                           <span style="margin-left: 5%;cursor: pointer;"(click)="finaliser(i)" title="finalisé" class="glyphicon 	glyphicon glyphicon-ok"></span>

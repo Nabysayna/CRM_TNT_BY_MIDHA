@@ -7,24 +7,36 @@ import {NgPipesModule} from 'ngx-pipes';
 import { CrmTntComponent } from './crm-tnt/crm-tnt.component';
 import { SuperviseurComponent } from './superviseur/superviseur.component';
 import { Routes, RouterModule} from '@angular/router';
+import { ConnexionComponent } from './connexion/connexion.component';
+import { AutentificationService} from './service/autentification.service';
+import { HttpClientModule} from '@angular/common/http';
+import { AffectationService } from './service/affectation.service';
 const routes:Routes=[
   {path:'commerciale', component:CrmTntComponent},
   {path:'supervideur', component:SuperviseurComponent},
-  {path:'',redirectTo:'/commerciale' ,pathMatch:'full'},
+  {path:'login', component:ConnexionComponent},
+  {path:'',redirectTo:'/login' ,pathMatch:'full'},
   
 ];
 @NgModule({
   declarations: [
     AppComponent,
     CrmTntComponent,
-    SuperviseurComponent
+    SuperviseurComponent,
+    ConnexionComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ModalModule.forRoot(),
     NgPipesModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HttpClientModule
+  ],
+  providers:
+  [
+    AutentificationService,
+    AffectationService
   ],
   bootstrap: [AppComponent]
 })
