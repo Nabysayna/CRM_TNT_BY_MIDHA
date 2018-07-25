@@ -11,6 +11,8 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import { AutentificationService} from './service/autentification.service';
 import { HttpClientModule} from '@angular/common/http';
 import { AffectationService } from './service/affectation.service';
+import { PaginationModule } from 'ngx-bootstrap';
+
 const routes:Routes=[
   {path:'commerciale', component:CrmTntComponent},
   {path:'supervideur', component:SuperviseurComponent},
@@ -31,7 +33,8 @@ const routes:Routes=[
     ModalModule.forRoot(),
     NgPipesModule,
     RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
+    PaginationModule.forRoot()
   ],
   providers:
   [

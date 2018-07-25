@@ -37,8 +37,11 @@
                    [(ngModel)]="filtres"
                   #name="ngModel" placeholder="Filtrer" >
               </div>
-              <table class="table table-bordered table-stripped">
-              <tr>
+              <div class="form-group">
+                  <pagination [totalItems]="contentArray.length" (pageChanged)="pageChanged($event)"></pagination>
+              </div>
+               <table class="table table-bordered table-stripped">
+               <tr>
                <th>
                <input type="checkbox" name="checke"  [(ngModel)]="checke"  (click)="checks()"> tout coché</th>
             
@@ -47,19 +50,19 @@
                 <th>Téléphone</th>
                 <th>Option   <a class="btn btn-default"><span style="margin-left: 5%;cursor: pointer;" (click)="affecters(i);openModal(template)"title="Affecter" class="glyphicon 	 glyphicon-list-alt"> affecters</span> </a></th>
               </tr>
-                  <tr *ngFor="let a of Abonner | filterBy: ['prenom']: filtres;let i=index" >
+                  <tr class="content-item" *ngFor="let l of returnedArray" >
                       <td > 
                           <input type="checkbox" (click)="cocher(i)" >
                        </td>
-                      <td>{{a.prenom}}</td>
-                      <td>{{a.nom}}</td>
-                      <td>{{a.tel}}</td>
+                      <td>{{l.Firstname}}</td>
+                      <td>{{l.Lastname}}</td>
+                      <td>{{l.Phone}}</td>
                       <td><span style="margin-left: 5%;cursor: pointer;" (click)="getEtat(a.etat,i)" title="etat" class="glyphicon  glyphicon-bookmark"></span>
                         <span style="margin-left: 5%;cursor: pointer;" (click)="affecter(i);openModal(template)" title="Affecter" class="glyphicon 	 glyphicon-list-alt"></span>
-                    
                       </td>
                    </tr> 
             </table>
+            <a  style="margin-left: 95%;cursor: pointer;" class="btn btn-default" (click)="demander()">Suivant</a> 
           </div>
           <div *ngIf="port==1">
                <div class="form-group">
@@ -108,7 +111,7 @@
                      [(ngModel)]="dateRV"
                      #name="ngModel">
                         
-                        <option *ngFor="let c of Commerciale;let i=index" >{{c.prenom}} {{c.nom}}</option>
+                        <option *ngFor="let c of listeCC;let i=index" >{{c.prenom}} {{c.nom}}</option>
                     </select>    
                   </div>
                  <p></p>

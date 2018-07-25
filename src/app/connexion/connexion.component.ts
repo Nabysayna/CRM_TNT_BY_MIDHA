@@ -29,6 +29,8 @@ export class ConnexionComponent implements OnInit {
            //alert("ok");
           }else if(this.isLogged['message'].accesslevel==4){
             this.Error=0;
+            console.log(this.isLogged['message'].basetoken);
+            localStorage.setItem("token",this.isLogged['message'].basetoken);
             //alert(this.isLogged['message'].basetoken)
             this.router.navigate(['/supervideur']);
           }else{

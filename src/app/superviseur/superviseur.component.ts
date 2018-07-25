@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from '../../../node_modules/ngx-bootstrap/modal';
 import { AffectationService } from '../service/affectation.service';
+import { PageChangedEvent } from '../../../node_modules/ngx-bootstrap';
 
 @Component({
   selector: 'app-superviseur',
@@ -9,6 +10,10 @@ import { AffectationService } from '../service/affectation.service';
 })
 export class SuperviseurComponent implements OnInit {
   
+  contentArray:any = [];
+  returnedArray:any=[];
+  listeCC:any;
+  listeClients:any;
   liste:number=0;
   port:number=0;
   filtres:string;
@@ -76,7 +81,7 @@ export class SuperviseurComponent implements OnInit {
   }
  
   Commerciale = [
-    {prenom:'awa', nom:'FALL',tel:'779632587',clients:[]},
+    {prenom:'awa', nom:'FALL',tel:'779632587',clients:[{prenom:'',nom:'', tel:'',commentaire:''}]},
     {prenom:'Aby', nom:'Sy',tel:'779232587',clients:[]},
     {prenom:'Anta', nom:'Gueye',tel:'779699587',clients:[]},
     {prenom:'Coumba',nom:'Diouf',tel:'779632587',clients:[]}
@@ -155,21 +160,60 @@ export class SuperviseurComponent implements OnInit {
   }
 
   comment(i:number){
-    //this.Commerciale[i].clients=this.listeClient;
+   
     for(let a of this.Commerciale){
       a.clients=this.listeClient;
-      console.log(a.nom);
+      alert(a.nom);
       for(let c of a.clients){
-        console.log(a.prenom);
+        alert(a.prenom+" "+a.nom);
       }
     }
   }
   constructor(private modalService: BsModalService,public affectationService:AffectationService) { }
+ 
+  pageChanged(event: PageChangedEvent): void {
+    const startItem = (event.page - 1) * event.itemsPerPage;
+    const endItem = event.page * event.itemsPerPage;
+    this.returnedArray = this.contentArray.slice(startItem, endItem);
+  }
+  index:any;
+  id:number;
+  demandeListe:any=[];
+  demander(){
+    this.index=this.contentArray.length;
+   for(let i = 0;i< this.contentArray.length;i++){
+     if(this.contentArray.length-1==i){
+      this.id=this.contentArray[i].id;
+      console.log(this.id);
+     }  
+     console.log(1);
+    }
+    this.affectationService.demandeClient(localStorage.getItem("token"),this.id).subscribe(data =>{
+      this.demandeListe=data['message'];
+      for(let d of this.demandeListe){
+        this.contentArray.push(d);
+      }
+     
+     // this.returnedArray = this.contentArray.slice(0, 20);
+    });
+  }
 
+ 
+
+ 
   ngOnInit() {
+    this.demandeListe=[];
     for(let lp of this.Abonner){
       this.listeClient.push(lp);
     }
+    this.affectationService.getClient(localStorage.getItem("token")).subscribe(data =>{
+      this.contentArray=data['message'];
+      this.returnedArray = this.contentArray.slice(0, 20);
+    });
+    this.affectationService.getCommerciaux(localStorage.getItem("token")).subscribe(data =>{
+      this.listeCC=data['message'];
+      console.log(this.listeCC);
+    });
   }
 
 }
