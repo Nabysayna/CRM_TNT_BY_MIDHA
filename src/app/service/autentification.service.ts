@@ -7,7 +7,7 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AutentificationService {
-  private url:string='http://192.168.1.136/crmTNTBackend/index.php';
+  private url:string='http://192.168.1.167/crmTNTBackend/index.php';
   private header :HttpHeaders;
   constructor(private http:HttpClient) {
    // this.header =new HttpHeaders({'Content-Type':'application/x-www-from-urlencoded'});

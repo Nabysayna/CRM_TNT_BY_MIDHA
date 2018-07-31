@@ -43,14 +43,14 @@
                 <th>Téléphone</th>
                 <th>Option</th>
               </tr>
-                  <tr *ngFor="let a of listeAppel | filterBy: ['prenom']: filtres;let i=index" >
-                      <td>{{a.prenom}}</td>
-                      <td>{{a.nom}}</td>
-                      <td>{{a.tel}}</td>
-                      <td><span style="margin-left: 5%;cursor: pointer;" (click)="getEtat(a.etat,i)" title="etat" class="glyphicon  glyphicon-bookmark"></span>
+                  <tr *ngFor="let a of listeAppel | filterBy: ['Firstname']: filtres;let i=index" >
+                      <td>{{a.Firstname}}</td>
+                      <td>{{a.Lastname}}</td>
+                      <td>{{a.Phone}}</td>
+                      <td><span style="margin-left: 5%;cursor: pointer;" (click)="getTel(i);openModal1(template1)" title="etat" class="glyphicon  glyphicon-stats"></span>
                           <span style="margin-left: 5%;cursor: pointer;" (click)="abonner(i)" title="abonner" class="glyphicon glyphicon-saved"></span>
-                          <span style="margin-left: 5%;cursor: pointer;" (click)="comment(i);openModal(template)" title="commentaire" class="glyphicon  glyphicon-comment"></span>
-                          <span style="margin-left: 5%;cursor: pointer;"(click)="finaliser(i)" title="finalisé" class="glyphicon 	glyphicon glyphicon-ok"></span>
+                         <span style="margin-left: 5%;cursor: pointer;" (click)="openModal2(template2)" title="Catégoriser" class="glyphicon  glyphicon-comment"></span>
+                          <span style="margin-left: 5%;cursor: pointer;"(click)="getTelCat(i)" title="finalisé" class="glyphicon 	glyphicon glyphicon-ok"></span>
                       </td>
                    </tr> 
             </table>
@@ -72,10 +72,9 @@
                   <th>Option</th>
                 </tr>
                     <tr *ngFor="let a of listePorteFeuille | filterBy: ['etat']: filtrePortFeuille;let i=index"  [ngStyle]="{'background-color':getColor(a.etat)}">
-                        <td >{{a.prenom}}</td>
-                        <td >{{a.nom}}</td>
-                        <td >{{a.tel}}</td>
-                        <td >{{a.commentaire}}</td>
+                      <td>{{a.Firstname}}</td>
+                      <td>{{a.Lastname}}</td>
+                      <td>{{a.Phone}}</td>
                         <td ><span style="margin-left: 5%;cursor: pointer;" title="etat" class="glyphicon glyphicon glyphicon-bookmark"></span>
                             <span style="margin-left: 5%;cursor: pointer;" (click)="abonner(i)"  title="abonné" class="glyphicon  glyphicon-saved"></span>
                            <span style="margin-left: 5%;cursor: pointer;"  title="commentaire" class="glyphicon glyphicon glyphicon-comment"></span>
@@ -95,7 +94,7 @@
         <div class="modal-body">
           <div>
               
-               <form (ngSubmit)="onClick()"  #patientForm="ngForm">
+               <form  #patientForm="ngForm">
                   <div class="fform-group">
                     <!-- <label class="control-label">Commentaire</label>
                      <input class="form-control" type="text" name="dateRn" required
@@ -107,7 +106,54 @@
                   </div>
                  <p></p>
                  <div class="form-group">
-                   <input type="submit" class="btn btn-success" value="" (click)="comment(i);modalRef.hide()" value="Valider">
+                   <input type="submit" class="btn btn-success" value="" (click)="modalRef.hide()" value="Valider">
+                 </div>
+                </form>
+          </div>
+         
+        </div>
+      </ng-template>
+      <ng-template #template1>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Etat d'abonnement</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef1.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-default">
+                <p>L'abonnement du client <strong>{{prenom}} {{nom}}</strong> est en <strong>{{abEtat}}</strong> arrive à échéance le <strong>{{infos.date}}</strong></p>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #template2>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Catégoriser</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+              
+               <form  #patientForm="ngForm">
+                  <div class="fform-group">
+                     <label class="control-label">Catégorie</label>
+                     <select class="form-control" type="text" name="cat" required
+                     [(ngModel)]="categoties"
+                     #name="ngModel">
+                              <option *ngFor="let c of Categorie;let i=index" value="{{c.cat}}"> {{c.cat}}</option>
+                    </select> 
+                    <div *ngIf="categoties=='A rappeller' || categoties=='Mécontent'">
+                        <label class="control-label">Commentaire</label>
+                      <textarea class="form-control" name="description" rows="3" cols="10" required
+                      [(ngModel)]="commentaires"
+                      #name="ngModel"></textarea>
+                    </div>   
+                  </div>
+                 <p></p>
+                 <div class="form-group">
+                   <input type="submit" class="btn btn-success"  (click)="modalRef2.hide()" value="Valider">
                  </div>
                 </form>
           </div>

@@ -21,6 +21,7 @@ export class SuperviseurComponent implements OnInit {
   commentaires:string;
   listePorteFeuille =[];
   affect:number=0;
+  coch:number=0;
   filtrePortFeuille:number;
   //checkbox
   chck:number=0;
@@ -80,35 +81,56 @@ export class SuperviseurComponent implements OnInit {
      }
   }
  
-  Commerciale = [
-    {prenom:'awa', nom:'FALL',tel:'779632587',clients:[{prenom:'',nom:'', tel:'',commentaire:''}]},
-    {prenom:'Aby', nom:'Sy',tel:'779232587',clients:[]},
-    {prenom:'Anta', nom:'Gueye',tel:'779699587',clients:[]},
-    {prenom:'Coumba',nom:'Diouf',tel:'779632587',clients:[]}
-  ]
-  Abonner = [
-    {prenom:'Amadou',nom:'Ba', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:1,cocher:0},
-    {prenom:'Fatou',nom:'Diop', tel:'779654263',commentaire:'gvhvhbjh ibhjb', etat:2,cocher:0},
-    {prenom:'Adama',nom:'fall', tel:'779866263',commentaire:'gvhvhbjh ibhjb', etat:3,cocher:0},
-    {prenom:'Issa',nom:'Tamba', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:1,cocher:0},
-    {prenom:'Samba',nom:'Sow', tel:'779888263',commentaire:'gvhvhbjh ibhjb', etat:2,cocher:0},
-    {prenom:'Ndeye',nom:'Gueye', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:1,cocher:0},
-    {prenom:'Anta',nom:'Niang', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:2,cocher:0},
-    {prenom:'Fallou',nom:'Fall', tel:'779121426',commentaire:'gvhvhbjh ibhjb', etat:1,cocher:0},
-    {prenom:'Awa',nom:'Diouf', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:3,cocher:0},
-    {prenom:'Youssou',nom:'Ba', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:3,cocher:0},
-    {prenom:'Ablaye',nom:'Barry', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:1,cocher:0}
-  ]
+ 
   modalRef: BsModalRef;
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
+
+  modalRef1: BsModalRef;
+  openModal1(template1: TemplateRef<any>) {
+    this.modalRef1 = this.modalService.show(template1);
+  }
+
   porte(){
       this.liste=1;
       this.port=1;
       this.affect=0;
   }
-  
+  tel:string;
+  infos:any= [];
+  nom:string;
+  prenom:string;
+  etat(i:number){
+    if(i==0){
+      return 'en cours';
+    }else if(i==1){
+      return 'terminé';
+    }else {
+      return 'échéance proche';
+    }
+  }
+  abEtat:string;
+  getTel(i:number){
+    
+    this.tel=this.returnedArray[i].Phone;
+    this.nom=this.returnedArray[i].Lastname;
+    this.prenom=this.returnedArray[i].Firstname;
+    console.log(this.tel);
+   /* this.affectationService.demandeClient(localStorage.getItem("token"),this.id).subscribe(data =>{
+      this.demandeListe=data['message'];
+      for(let d of this.demandeListe){
+        this.contentArray.push(d);
+      }*/
+      this.affectationService.getEtat(localStorage.getItem("token"),this.tel).subscribe(data =>{
+       
+        this.infos=data['message'];
+        this.abEtat=this.etat(this.infos.etat);
+        //for(let i of this.infos){
+         // console.log(i.etat+" et "+i.date);
+        //}
+      });
+      }
   abonner(i : number){
     //alert(this.listeAppel[i].etat);
     //for(let a of this.listeAppel[i]){
@@ -118,7 +140,8 @@ export class SuperviseurComponent implements OnInit {
   }
   cocher(i:number){
      // alert("cocher");
-      this.Abonner[i].cocher=1;
+     this.coch=1;
+     console.log("this.coch");
      // alert( this.Abonner[i].cocher);
   }
   
@@ -133,24 +156,27 @@ export class SuperviseurComponent implements OnInit {
     this.porte(); 
   }
   affectationList =[];
-  affecter(i :number,id:number){
+  affecter(i :number){
     //this.coche();
-    if(this.chck==1){
-      let obj = {prenom:this.listeClient[i].prenom,nom:this.listeClient[i].nom, tel:this.listeClient[i].tel,commentaire:this.listeClient[i].commentaire, etat:this.listeClient[i].etat}
-      this.Abonner.splice(i,1); 
-      this.affectationList.push(obj);
-      this.affectationService.affectation(this.affectationList,this.Commerciale[id]);
-     // alert(this.affectationList+" "+this.Commerciale[id]);
-    }else{
-      this.modalRef.hide();
-      //alert("Coché d'abord");
-    }
-   this.chck=0;
-    for(let l of this.affectationList)
-    console.log(l.prenom+" "+l.nom+" "+this.Commerciale[id]);
+    //if(this.coch==1){
+      //let obj = {prenom:this.listeClient[i].prenom,nom:this.listeClient[i].nom, tel:this.listeClient[i].tel,commentaire:this.listeClient[i].commentaire, etat:this.listeClient[i].etat}
+      //this.returnedArray.splice(i,1); 
+     
+      this.affectationList.push(this.returnedArray[i]);
+      for(let l of this.affectationList){
+        console.log("Client "+l.Firstname,l.Lastname,l.Phone);
+      }
+     
+    // }else{
+      //this.modalRef.hide();
+     
+      //this.modalRef.hide();
+    //}
+  // this.coch=0;
+  
   }
   affecters(){
-    for(let a of this.Abonner){
+    for(let a of this.returnedArray){
       if(a.cocher==1){
         this.affectationList.push(a);
       }
@@ -159,15 +185,14 @@ export class SuperviseurComponent implements OnInit {
      console.log(l.prenom+" "+l.nom);
   }
 
-  comment(i:number){
+  telCC:any=[];
+  ccTel:string;
+  TelCC:any;
+  getCC(i:number){
    
-    for(let a of this.Commerciale){
-      a.clients=this.listeClient;
-      alert(a.nom);
-      for(let c of a.clients){
-        alert(a.prenom+" "+a.nom);
-      }
-    }
+    this.TelCC=this.ccTel.split('-',1);
+    console.log("CC "+this.TelCC)
+     
   }
   constructor(private modalService: BsModalService,public affectationService:AffectationService) { }
  
@@ -203,7 +228,7 @@ export class SuperviseurComponent implements OnInit {
  
   ngOnInit() {
     this.demandeListe=[];
-    for(let lp of this.Abonner){
+    for(let lp of this.returnedArray){
       this.listeClient.push(lp);
     }
     this.affectationService.getClient(localStorage.getItem("token")).subscribe(data =>{

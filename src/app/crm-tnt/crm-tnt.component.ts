@@ -1,5 +1,7 @@
 import { Component, OnInit, TemplateRef, Input } from '@angular/core';
 import { BsModalService, BsModalRef } from '../../../node_modules/ngx-bootstrap/modal';
+import { AffectationService } from '../service/affectation.service';
+
 
 @Component({
   selector: 'app-crm-tnt',
@@ -12,7 +14,7 @@ export class CrmTntComponent implements OnInit {
   filtres:string;
   @Input() listeAppel =[];
   commentaires:string;
-  listePorteFeuille =[];
+  listePorteFeuille:any =[];
   lpf = [];
   filtrePortFeuille:number;
   rouge(){
@@ -50,18 +52,11 @@ export class CrmTntComponent implements OnInit {
       alert('abonné');
     }
  }
-  Abonner = [
-    {prenom:'Amadou',nom:'Ba', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:1},
-    {prenom:'Fatou',nom:'Diop', tel:'779654263',commentaire:'gvhvhbjh ibhjb', etat:2},
-    {prenom:'Adama',nom:'fall', tel:'779866263',commentaire:'gvhvhbjh ibhjb', etat:3},
-    {prenom:'Issa',nom:'Tamba', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:1},
-    {prenom:'Samba',nom:'Sow', tel:'779888263',commentaire:'gvhvhbjh ibhjb', etat:2},
-    {prenom:'Ndeye',nom:'Gueye', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:1},
-    {prenom:'Anta',nom:'Niang', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:2},
-    {prenom:'Fallou',nom:'Fall', tel:'779121426',commentaire:'gvhvhbjh ibhjb', etat:1},
-    {prenom:'Awa',nom:'Diouf', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:3},
-    {prenom:'Youssou',nom:'Ba', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:3},
-    {prenom:'Ablaye',nom:'Barry', tel:'779854263',commentaire:'gvhvhbjh ibhjb', etat:1}
+ 
+  Categorie = [
+    {cat:'finaliser'},
+    {cat:'A rappeller'},
+    {cat:'Mécontent'}
   ]
   modalRef: BsModalRef;
   openModal(template: TemplateRef<any>) {
@@ -84,11 +79,11 @@ export class CrmTntComponent implements OnInit {
   }
   finaliser(i : number){
     this.listePorteFeuille.push(this.listeAppel[i]);
-    this.listeAppel.splice(i,1); 
+    //this.listeAppel.splice(i,1); 
     this.porte(); 
   }
 
-  comment(i :number){
+  /*comment(i :number){
     //alert(this.commentaires);
      //if(this.listeAppel[i]){
        for(let a of this.listeAppel){
@@ -96,14 +91,59 @@ export class CrmTntComponent implements OnInit {
           a.commentaire=this.commentaires;
        }
     // }
-  }
+  }*/
 
-  constructor(private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService,public commercialeService:AffectationService) { }
 
-  ngOnInit() {
-    for(let lp of this.Abonner){
-      this.listeAppel.push(lp);
+  tel:string;
+  infos:any= [];
+  nom:string;
+  prenom:string;
+  etat(i:number){
+    if(i==0){
+      return 'en cours';
+    }else if(i==1){
+      return 'terminé';
+    }else {
+      return 'échéance proche';
     }
+  }
+  abEtat:string;
+  getTel(i:number){
+    
+    this.tel=this.listeAppel[i].Phone;
+    this.nom=this.listeAppel[i].Lastname;
+    this.prenom=this.listeAppel[i].Firstname;
+    console.log(this.tel);
+      this.commercialeService.getEtat(localStorage.getItem("token"),this.tel).subscribe(data =>{
+       
+        this.infos=data['message'];
+        this.abEtat=this.etat(this.infos.etat);
+      });
+      }
+      categoties:string='';
+     
+     
+      telCat:string;
+      getTelCat(i:number){
+        this.telCat=this.listeAppel[i].Phone;
+        console.log("tel for Cat "+this.telCat+" catégorie "+this.categoties+" Commentaire "+this.commentaires);
+        console.log(this.commercialeService.finaliser(localStorage.getItem("token"),this.tel,this.commentaires,this.categoties));
+      }
+      modalRef1: BsModalRef;
+      openModal1(template1: TemplateRef<any>) {
+        this.modalRef1 = this.modalService.show(template1);
+      }
+      modalRef2: BsModalRef;
+      openModal2(template2: TemplateRef<any>) {
+        this.modalRef2 = this.modalService.show(template2);
+      }
+  ngOnInit() {
+   
+    this.commercialeService.getClient(localStorage.getItem("token")).subscribe(data =>{
+      this.listeAppel=data['message'];
+     // this.returnedArray = this.contentArray.slice(0, 20);
+    });
   }
 
 }

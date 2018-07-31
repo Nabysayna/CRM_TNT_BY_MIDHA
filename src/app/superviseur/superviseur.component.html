@@ -50,14 +50,14 @@
                 <th>Téléphone</th>
                 <th>Option   <a class="btn btn-default"><span style="margin-left: 5%;cursor: pointer;" (click)="affecters(i);openModal(template)"title="Affecter" class="glyphicon 	 glyphicon-list-alt"> affecters</span> </a></th>
               </tr>
-                  <tr class="content-item" *ngFor="let l of returnedArray" >
+                  <tr class="content-item" *ngFor="let l of returnedArray;let i=index" >
                       <td > 
-                          <input type="checkbox" (click)="cocher(i)" >
+                          <input type="checkbox" (click)="cocher" >
                        </td>
                       <td>{{l.Firstname}}</td>
                       <td>{{l.Lastname}}</td>
                       <td>{{l.Phone}}</td>
-                      <td><span style="margin-left: 5%;cursor: pointer;" (click)="getEtat(a.etat,i)" title="etat" class="glyphicon  glyphicon-bookmark"></span>
+                      <td><span style="margin-left: 5%;cursor: pointer;" (click)="getTel(i);openModal1(template1)" title="etat" class="glyphicon  glyphicon-bookmark"></span>
                         <span style="margin-left: 5%;cursor: pointer;" (click)="affecter(i);openModal(template)" title="Affecter" class="glyphicon 	 glyphicon-list-alt"></span>
                       </td>
                    </tr> 
@@ -105,22 +105,36 @@
           <div>
               
                <form  #patientForm="ngForm">
-                  <div class="fform-group">
+                  <div class="form-group">
                      <label class="control-label">Commerciale</label>
-                     <select class="form-control" type="text" name="dateRn" required
-                     [(ngModel)]="dateRV"
+                     <select class="form-control" type="text" name="telCC" required
+                     [(ngModel)]="ccTel"
                      #name="ngModel">
                         
-                        <option *ngFor="let c of listeCC;let i=index" >{{c.prenom}} {{c.nom}}</option>
+                        <option *ngFor="let c of listeCC;let i=index" >{{c.telephone}}-{{c.prenom}}-{{c.nom}}</option>
                     </select>    
                   </div>
                  <p></p>
                  <div class="form-group">
-                   <input type="submit" class="btn btn-success" value="" (click)="comment(i);modalRef.hide()" value="Valider">
+                   <input type="submit" class="btn btn-success" value="" (click)="getCC(i);modalRef.hide()" value="Valider">
                  </div>
                 </form>
           </div>
          
+        </div>
+      </ng-template>
+
+      <ng-template #template1>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Etat d'abonnement</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef1.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-default">
+                <p>L'abonnement du client <strong>{{prenom}} {{nom}}</strong> est en <strong>{{abEtat}}</strong> arrive à échéance le <strong>{{infos.date}}</strong></p>
+          </div>
         </div>
       </ng-template>
   </div>

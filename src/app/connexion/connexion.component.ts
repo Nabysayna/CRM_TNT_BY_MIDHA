@@ -24,7 +24,7 @@ export class ConnexionComponent implements OnInit {
           if(this.isLogged['message'].accesslevel==5){
             this.Error=0;
             this.user=this.isLogged['message'].prenom;  
-            alert(this.user);
+            //alert(this.user);
             this.router.navigate(['/commerciale']);
            //alert("ok");
           }else if(this.isLogged['message'].accesslevel==4){
