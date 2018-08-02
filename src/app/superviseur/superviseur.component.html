@@ -48,18 +48,16 @@
                  <th>Prenom</th>
                 <th>Nom</th>
                 <th>Téléphone</th>
-                <th>Option   <a class="btn btn-default"><span style="margin-left: 5%;cursor: pointer;" (click)="affecters(i);openModal(template)"title="Affecter" class="glyphicon 	 glyphicon-list-alt"> affecters</span> </a></th>
+                <th>Option   <a class="btn btn-default"><span style="margin-left: 5%;cursor: pointer;" (click)="openModal(template)"title="Affecter" class="glyphicon 	 glyphicon-list-alt"> affecters</span> </a></th>
               </tr>
                   <tr class="content-item" *ngFor="let l of returnedArray;let i=index" >
                       <td > 
-                          <input type="checkbox" (click)="cocher" >
+                          <input type="checkbox" (click)="affecter(i)" >
                        </td>
                       <td>{{l.Firstname}}</td>
                       <td>{{l.Lastname}}</td>
                       <td>{{l.Phone}}</td>
-                      <td><span style="margin-left: 5%;cursor: pointer;" (click)="getTel(i);openModal1(template1)" title="etat" class="glyphicon  glyphicon-bookmark"></span>
-                        <span style="margin-left: 5%;cursor: pointer;" (click)="affecter(i);openModal(template)" title="Affecter" class="glyphicon 	 glyphicon-list-alt"></span>
-                      </td>
+                      <td><span style="margin-left: 5%;cursor: pointer;" (click)="getTel(i);openModal1(template1)" title="etat" class="glyphicon  glyphicon-bookmark"></span></td>
                    </tr> 
             </table>
             <a  style="margin-left: 95%;cursor: pointer;" class="btn btn-default" (click)="demander()">Suivant</a> 

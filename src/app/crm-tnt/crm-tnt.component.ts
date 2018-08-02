@@ -83,16 +83,6 @@ export class CrmTntComponent implements OnInit {
     this.porte(); 
   }
 
-  /*comment(i :number){
-    //alert(this.commentaires);
-     //if(this.listeAppel[i]){
-       for(let a of this.listeAppel){
-        // alert( a.commentaire);
-          a.commentaire=this.commentaires;
-       }
-    // }
-  }*/
-
   constructor(private modalService: BsModalService,public commercialeService:AffectationService) { }
 
   tel:string;
@@ -127,7 +117,7 @@ export class CrmTntComponent implements OnInit {
       telCat:string;
       getTelCat(i:number){
         this.telCat=this.listeAppel[i].Phone;
-        console.log("tel for Cat "+this.telCat+" catégorie "+this.categoties+" Commentaire "+this.commentaires);
+       // console.log("tel for Cat "+this.telCat+" catégorie "+this.categoties+" Commentaire "+this.commentaires);
         console.log(this.commercialeService.finaliser(localStorage.getItem("token"),this.tel,this.commentaires,this.categoties));
       }
       modalRef1: BsModalRef;
@@ -140,8 +130,10 @@ export class CrmTntComponent implements OnInit {
       }
   ngOnInit() {
    
-    this.commercialeService.getClient(localStorage.getItem("token")).subscribe(data =>{
+    this.commercialeService.getClientCC(localStorage.getItem("token")).subscribe(data =>{
+       console.log(localStorage.getItem("token"));
       this.listeAppel=data['message'];
+     
      // this.returnedArray = this.contentArray.slice(0, 20);
     });
   }

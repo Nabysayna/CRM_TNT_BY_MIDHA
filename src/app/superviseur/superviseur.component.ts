@@ -157,32 +157,19 @@ export class SuperviseurComponent implements OnInit {
   }
   affectationList =[];
   affecter(i :number){
-    //this.coche();
-    //if(this.coch==1){
-      //let obj = {prenom:this.listeClient[i].prenom,nom:this.listeClient[i].nom, tel:this.listeClient[i].tel,commentaire:this.listeClient[i].commentaire, etat:this.listeClient[i].etat}
-      //this.returnedArray.splice(i,1); 
+  
      
       this.affectationList.push(this.returnedArray[i]);
       for(let l of this.affectationList){
         console.log("Client "+l.Firstname,l.Lastname,l.Phone);
       }
      
-    // }else{
-      //this.modalRef.hide();
-     
-      //this.modalRef.hide();
-    //}
-  // this.coch=0;
-  
+ 
   }
   affecters(){
-    for(let a of this.returnedArray){
-      if(a.cocher==1){
-        this.affectationList.push(a);
-      }
-    }
-    for(let l of this.affectationList)
-     console.log(l.prenom+" "+l.nom);
+     console.log(this.affectationService.affectation(localStorage.getItem("token"),this.affectationList,this.TelCC).subscribe(data =>{
+     console.log(JSON.stringify(data));
+        }));
   }
 
   telCC:any=[];
@@ -190,8 +177,9 @@ export class SuperviseurComponent implements OnInit {
   TelCC:any;
   getCC(i:number){
    
-    this.TelCC=this.ccTel.split('-',1);
-    console.log("CC "+this.TelCC)
+    this.TelCC=(this.ccTel.split('-',1))[0];
+    console.log("CC "+this.TelCC);
+    this.affecters();
      
   }
   constructor(private modalService: BsModalService,public affectationService:AffectationService) { }

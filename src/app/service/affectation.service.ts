@@ -14,17 +14,18 @@ export class AffectationService {
     this.header = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
    }
 
-   affectation(client=[],commerciale:any){
-      let link =this.url+'/authenticat/login';
-      let data = JSON.stringify({clients:client,commerciales:commerciale});
+   affectation(token:string,client=[],phone:string){
+      let link =this.url+'/superviseur/addclientsbycom';
+      let data = JSON.stringify({token:token,clients:client,phone:phone});
       let param='param='+data;
       //console.log(param)
-      return this.http.post(link,param,{headers:this.header}).pipe(map(
+     return this.http.post(link,param,{headers:this.header}).pipe(map(
           res => {
              //console.log(res);
              return res;
           }
       ));
+     // return 'les client ont été affecté au commerciale';
    }
    getCommerciaux(token:string){
           let link =this.url+'/comerciaux/comerciaux';
@@ -40,7 +41,7 @@ export class AffectationService {
       }
      // http://localhost/crmTNTBackend/index.php/comerciaux/clients
       getClient(token:string){
-        let link =this.url+'/comerciaux/clients';
+        let link =this.url+'/superviseur/clients';
         let data = JSON.stringify({token:token});
         let param='param='+data;
         //console.log(param)
@@ -51,6 +52,18 @@ export class AffectationService {
             }
         ));
     }
+    getClientCC(token:string){
+      let link =this.url+'/comerciaux/clients';
+      let data = JSON.stringify({token:token});
+      let param='param='+data;
+      //console.log(param)
+      return this.http.post(link,param,{headers:this.header}).pipe(map(
+          res => {
+            console.log(res);
+            return res;
+          }
+      ));
+  }
       demandeClient(token:string,id:number){
         let link =this.url+'/comerciaux/clientsbyinterval';
         let data = JSON.stringify({token:token,id:id});
@@ -83,7 +96,7 @@ export class AffectationService {
         let data = JSON.stringify({token:token,phone:phone,commentaire:commentaire,categorie:categorie});
         let param='param='+data;
         //console.log(param)
-        return "ok";
+        return "ok"; 
         //return 'Naby NDIAYE en cours échéance 02/09/2018';
       }
    }

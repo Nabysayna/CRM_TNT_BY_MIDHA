@@ -23,10 +23,11 @@ export class ConnexionComponent implements OnInit {
         if(this.isLogged['codeerror']==true){
           if(this.isLogged['message'].accesslevel==5){
             this.Error=0;
+            localStorage.setItem("token",this.isLogged['message'].basetoken);
             this.user=this.isLogged['message'].prenom;  
             //alert(this.user);
             this.router.navigate(['/commerciale']);
-           //alert("ok");
+          // console.log(this.isLogged['message'].basetoken);
           }else if(this.isLogged['message'].accesslevel==4){
             this.Error=0;
             console.log(this.isLogged['message'].basetoken);
