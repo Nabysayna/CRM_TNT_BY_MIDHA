@@ -48,7 +48,7 @@
                  <th>Prenom</th>
                 <th>Nom</th>
                 <th>Téléphone</th>
-                <th>Option   <a class="btn btn-default"><span style="margin-left: 5%;cursor: pointer;" (click)="openModal(template)"title="Affecter" class="glyphicon 	 glyphicon-list-alt"> affecters</span> </a></th>
+                <th>Option   <a class="btn btn-default"><span style="margin-left: 5%;cursor: pointer;" (click)="openModal2(template2)"title="Affecter" class="glyphicon 	 glyphicon-list-alt"> affecters</span> </a></th>
               </tr>
                   <tr class="content-item" *ngFor="let l of returnedArray;let i=index" >
                       <td > 
@@ -101,14 +101,12 @@
         </div>
         <div class="modal-body">
           <div>
-              
                <form  #patientForm="ngForm">
                   <div class="form-group">
                      <label class="control-label">Commerciale</label>
                      <select class="form-control" type="text" name="telCC" required
                      [(ngModel)]="ccTel"
-                     #name="ngModel">
-                        
+                     #name="ngModel">         
                         <option *ngFor="let c of listeCC;let i=index" >{{c.telephone}}-{{c.prenom}}-{{c.nom}}</option>
                     </select>    
                   </div>
@@ -118,10 +116,8 @@
                  </div>
                 </form>
           </div>
-         
         </div>
       </ng-template>
-
       <ng-template #template1>
         <div class="modal-header">
           <h4 class="modal-title pull-left">Etat d'abonnement</h4>
@@ -133,6 +129,32 @@
           <div class="alert alert-default">
                 <p>L'abonnement du client <strong>{{prenom}} {{nom}}</strong> est en <strong>{{abEtat}}</strong> arrive à échéance le <strong>{{infos.date}}</strong></p>
           </div>
+        </div>
+      </ng-template>
+      <ng-template #template2>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Liste à affecter</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered table-stripped">
+            <tr>
+              <th>Prenom</th>
+              <th>Nom</th>
+              <th>Téléphone</th>
+              <th>Option</th>
+            </tr>
+                <tr *ngFor="let l of affectationList ;let i=index">
+                  <td>{{l.Firstname}}</td>
+                  <td>{{l.Lastname}}</td>
+                  <td>{{l.Phone}}</td>
+                    <td ><span style="margin-left: 5%;cursor: pointer;" (click)="remove(i)" title="Supprimer de la liste" class="glyphicon  glyphicon-remove"></span>
+                         </td>
+                 </tr>
+          </table>
+          <input type="submit" class="btn btn-success" value="" (click)="openModal(template)" value="Valider">
         </div>
       </ng-template>
   </div>

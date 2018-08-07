@@ -55,6 +55,7 @@ export class SuperviseurComponent implements OnInit {
     this.filtrePortFeuille=3;
   }
   tout(){
+    
     this.filtrePortFeuille=null;
   }
   getColor(etat){
@@ -90,6 +91,10 @@ export class SuperviseurComponent implements OnInit {
   modalRef1: BsModalRef;
   openModal1(template1: TemplateRef<any>) {
     this.modalRef1 = this.modalService.show(template1);
+  }
+  modalRef2: BsModalRef;
+  openModal2(template2: TemplateRef<any>) {
+    this.modalRef2 = this.modalService.show(template2);
   }
 
   porte(){
@@ -157,14 +162,14 @@ export class SuperviseurComponent implements OnInit {
   }
   affectationList =[];
   affecter(i :number){
-  
-     
       this.affectationList.push(this.returnedArray[i]);
       for(let l of this.affectationList){
         console.log("Client "+l.Firstname,l.Lastname,l.Phone);
       }
-     
  
+  }
+  remove(i){
+    this.affectationList.splice(i,1);
   }
   affecters(){
      console.log(this.affectationService.affectation(localStorage.getItem("token"),this.affectationList,this.TelCC).subscribe(data =>{
