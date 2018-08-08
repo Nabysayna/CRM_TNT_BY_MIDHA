@@ -19,12 +19,15 @@ export class ConnexionComponent implements OnInit {
   onConnect(){
     this.loginService.login(this.login, this.password).subscribe(data =>{
       this.isLogged =data;
-      console.log(data);
+      console.log("===>>"+this.isLogged['message'].prenom);
         if(this.isLogged['codeerror']==true){
           if(this.isLogged['message'].accesslevel==5){
             this.Error=0;
             localStorage.setItem("token",this.isLogged['message'].basetoken);
-            this.user=this.isLogged['message'].prenom;  
+            localStorage.setItem("idCC",this.isLogged['message'].id);
+            localStorage.setItem("prenom",this.isLogged['message'].prenom);
+            localStorage.setItem("nom",this.isLogged['message'].nom);
+            localStorage.setItem("cc",this.isLogged['message']); 
             //alert(this.user);
             this.router.navigate(['/commerciale']);
           // console.log(this.isLogged['message'].basetoken);

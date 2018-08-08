@@ -7,7 +7,7 @@ import {map} from 'rxjs/operators';
 })
 export class AffectationService {
 
-  private url:string='http://192.168.1.109/crmTNTBackend/index.php';
+  private url:string='http://192.168.1.114/crmTNTBackend/index.php';
   private header :HttpHeaders;
   constructor(private http:HttpClient) {
    // this.header =new HttpHeaders({'Content-Type':'application/x-www-from-urlencoded'});

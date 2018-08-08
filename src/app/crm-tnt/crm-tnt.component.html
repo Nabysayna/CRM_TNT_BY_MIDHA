@@ -12,10 +12,10 @@
 
           <div class="navbar-collapse collapse navbar-right"style="margin-right: 5%">
                   <ul class="nav navbar-nav">
-                      <li class="active"><a >Accueil</a>
+                      <li style="cursor: pointer;" class="active"><a >Accueil</a>
                       </li>
                       <li style="cursor: pointer;"><a routerLink="/commerciale" routerLinkActive="active">Commerciale</a></li>
-                      <li style="cursor: pointer;"><a routerLink="/login" routerLinkActive="active">Déconnexion</a></li>
+                       <li style="cursor: pointer;"><a routerLink="/login" routerLinkActive="active">Déconnexion</a></li>
                  
                     </ul>
               </div>
@@ -48,7 +48,7 @@
                       <td>{{a.Lastname}}</td>
                       <td>{{a.Phone}}</td>
                       <td><span style="margin-left: 5%;cursor: pointer;" (click)="getTel(i);openModal1(template1)" title="etat" class="glyphicon  glyphicon-stats"></span>
-                          <span style="margin-left: 5%;cursor: pointer;" (click)="openModal3(template3)" title="abonner" class="glyphicon glyphicon-saved"></span>
+                          <span style="margin-left: 5%;cursor: pointer;" (click)="openModal3(template3);getClient(i)" title="abonner" class="glyphicon glyphicon-saved"></span>
                          <span style="margin-left: 5%;cursor: pointer;" (click)="openModal2(template2)" title="Catégoriser" class="glyphicon  glyphicon-comment"></span>
                           <span style="margin-left: 5%;cursor: pointer;"(click)="getTelCat(i)" title="finalisé" class="glyphicon 	glyphicon glyphicon-ok"></span>
                       </td>
@@ -171,8 +171,8 @@
           <div>
               
                <form  #patientForm="ngForm">
-                  <div class="fform-group">
-                     <label class="control-label">Operateur</label>
+                  <div class="form-group">
+                     <label class="control-label">Moyen de paiement</label>
                      <select class="form-control" type="text" name="Operateur" required
                      [(ngModel)]="Operateur"
                      #name="ngModel">
@@ -188,7 +188,7 @@
                     </div>   
                     <div *ngIf="Beneficiaires=='Amadou' || Beneficiaires=='Oumou' || Beneficiaires=='Autres'">
                        <div *ngIf=" Beneficiaires=='Autres'">
-                            <label class="control-label"> bénéficiaire</label>
+                            <label class="control-label">Nom bénéficiaire</label>
                             <input  class="form-control" type="text" name="Beneficiaires" required
                              [(ngModel)]="BeneficiairesAutre"
                             #name="ngModel" placeholder="Donner son nom" >
@@ -202,12 +202,11 @@
                     </div>   
                   </div>
                  <p></p>
-                 <div class="form-group">
+                 <div *ngIf="TypeServices!=undefined " class="form-group">
                    <input type="submit" class="btn btn-success"  (click)="abonner();modalRef3.hide()" value="Valider">
                  </div>
                 </form>
           </div>
-         
         </div>
       </ng-template>
   </div>

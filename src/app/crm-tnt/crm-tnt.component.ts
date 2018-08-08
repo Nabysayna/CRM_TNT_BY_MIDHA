@@ -147,14 +147,23 @@ export class CrmTntComponent implements OnInit {
         {nom : 'Depot'},
         {nom : 'Transfére avec code'}
       ]
+      client:string;
+      
+      getClient(i:number){
+        this.client=JSON.stringify(this.listeAppel[i])
+        console.log("Le client : "+this.client);
+      }
+      infoCC:string;
       abonner(){
         if(this.BeneficiairesAutre!=''){
           this.Beneficiaires=this.BeneficiairesAutre;
         }
-       console.log("Operation = "+this.Operateur+" Beneficiaires = "+this.Beneficiaires+" Type  = "+this.TypeServices);
+        this.infoCC=JSON.stringify(localStorage.getItem('prenom')+" "+localStorage.getItem('nom'));
+        
+       console.log("Operation = "+this.Operateur+" Beneficiaires = "+this.Beneficiaires+" Type  = "+this.TypeServices+" client = "+this.client+" CC = "+localStorage.getItem('id')+" CCinfo ="+this.infoCC);
        this.BeneficiairesAutre=''; 
        this.Beneficiaires='';
-       this.TypeServices='';
+       this.TypeServices=undefined;
        this.Operateur='';
       }
   ngOnInit() {
