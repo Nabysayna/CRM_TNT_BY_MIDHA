@@ -48,7 +48,7 @@
                       <td>{{a.Lastname}}</td>
                       <td>{{a.Phone}}</td>
                       <td><span style="margin-left: 5%;cursor: pointer;" (click)="getTel(i);openModal1(template1)" title="etat" class="glyphicon  glyphicon-stats"></span>
-                          <span style="margin-left: 5%;cursor: pointer;" (click)="abonner(i)" title="abonner" class="glyphicon glyphicon-saved"></span>
+                          <span style="margin-left: 5%;cursor: pointer;" (click)="openModal3(template3)" title="abonner" class="glyphicon glyphicon-saved"></span>
                          <span style="margin-left: 5%;cursor: pointer;" (click)="openModal2(template2)" title="Catégoriser" class="glyphicon  glyphicon-comment"></span>
                           <span style="margin-left: 5%;cursor: pointer;"(click)="getTelCat(i)" title="finalisé" class="glyphicon 	glyphicon glyphicon-ok"></span>
                       </td>
@@ -154,6 +154,56 @@
                  <p></p>
                  <div class="form-group">
                    <input type="submit" class="btn btn-success"  (click)="modalRef2.hide()" value="Valider">
+                 </div>
+                </form>
+          </div>
+         
+        </div>
+      </ng-template>
+      <ng-template #template3>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Abonner</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef3.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+              
+               <form  #patientForm="ngForm">
+                  <div class="fform-group">
+                     <label class="control-label">Operateur</label>
+                     <select class="form-control" type="text" name="Operateur" required
+                     [(ngModel)]="Operateur"
+                     #name="ngModel">
+                              <option *ngFor="let c of Operateurs;let i=index" value="{{c.nom}}"> {{c.nom}}</option>
+                    </select> 
+                    <div *ngIf="Operateur=='Orange Money' || Operateur=='Tigo Cash' || Operateur=='e-Money' ">
+                      <label class="control-label">Nom bénéficiaire</label>
+                      <select class="form-control" type="text" name="Beneficiaires" required
+                              [(ngModel)]="Beneficiaires"
+                              #name="ngModel">
+                               <option *ngFor="let b of Beneficiaire;let i=index" value="{{b.nom}}"> {{b.nom}}</option>
+                     </select> 
+                    </div>   
+                    <div *ngIf="Beneficiaires=='Amadou' || Beneficiaires=='Oumou' || Beneficiaires=='Autres'">
+                       <div *ngIf=" Beneficiaires=='Autres'">
+                            <label class="control-label"> bénéficiaire</label>
+                            <input  class="form-control" type="text" name="Beneficiaires" required
+                             [(ngModel)]="BeneficiairesAutre"
+                            #name="ngModel" placeholder="Donner son nom" >
+                        </div>
+                      <label class="control-label">Type de service</label>
+                      <select class="form-control" type="text" name="TypeServices" required
+                              [(ngModel)]="TypeServices"
+                              #name="ngModel">
+                               <option *ngFor="let c of TypeService;let i=index" value="{{c.nom}}"> {{c.nom}}</option>
+                     </select> 
+                    </div>   
+                  </div>
+                 <p></p>
+                 <div class="form-group">
+                   <input type="submit" class="btn btn-success"  (click)="abonner();modalRef3.hide()" value="Valider">
                  </div>
                 </form>
           </div>

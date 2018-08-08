@@ -66,13 +66,7 @@ export class CrmTntComponent implements OnInit {
       this.liste=1;
       this.port=1;
   }
-  abonner(i : number){
-    alert(this.listeAppel[i].etat);
-    //for(let a of this.listeAppel[i]){
-      this.listeAppel[i].etat=3;
-     alert( this.listeAppel[i].a.etat);
-   // }
-  }
+ 
   listeA(){
     this.liste=0;
     this.port=0;
@@ -127,6 +121,41 @@ export class CrmTntComponent implements OnInit {
       modalRef2: BsModalRef;
       openModal2(template2: TemplateRef<any>) {
         this.modalRef2 = this.modalService.show(template2);
+      }
+      /*
+      *********Abonnement***********
+      */
+      modalRef3: BsModalRef;
+      openModal3(template3: TemplateRef<any>) {
+        this.modalRef3 = this.modalService.show(template3);
+      }
+      Operateur:string;
+      Beneficiaires:string;
+      TypeServices:string;
+      BeneficiairesAutre:string='';
+      Operateurs =[
+        {nom:'Orange Money'},
+        {nom:'Tigo Cash'},
+        {nom:'e-Money'}
+      ]
+      Beneficiaire =[
+        { nom:'Amadou'},
+        { nom:'Oumou'},
+        { nom:'Autres'}
+      ]
+      TypeService =[
+        {nom : 'Depot'},
+        {nom : 'Transfére avec code'}
+      ]
+      abonner(){
+        if(this.BeneficiairesAutre!=''){
+          this.Beneficiaires=this.BeneficiairesAutre;
+        }
+       console.log("Operation = "+this.Operateur+" Beneficiaires = "+this.Beneficiaires+" Type  = "+this.TypeServices);
+       this.BeneficiairesAutre=''; 
+       this.Beneficiaires='';
+       this.TypeServices='';
+       this.Operateur='';
       }
   ngOnInit() {
    
